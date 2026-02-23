@@ -13,8 +13,8 @@ spec:
         app: nginx-demo
     spec:
       containers:
-      - name: nginx
-        image: latest
+      - name: nginx-image
+        image: nginx:latest
         ports:
         - containerPort: 80
         
