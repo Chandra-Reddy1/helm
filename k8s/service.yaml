@@ -1,12 +1,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-demo
+  name: my-app-service
+
 spec:
-  type: NodePort             # ✅ changed from LoadBalancer (works better on Minikube)
+  type: ClusterIP
+
   selector:
-    app: nginx-demo          # ✅ now matches pod label
+    app: my-app
+
   ports:
-  - port: 5000
-    targetPort: 5000         # ✅ points to Flask port
-    nodePort: 30500          # ✅ fixed external port (optional, remove to auto-assign)
+    - protocol: TCP
+      port: 80
+      targetPort: 80

@@ -1,19 +1,55 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-demo
+  name: my-app
+  labels:
+    app: my-app
+
 spec:
   replicas: 2
+
   selector:
     matchLabels:
-      app: nginx-demo          # ✅ matches template label below
+      app: my-app
+
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+
   template:
     metadata:
       labels:
-        app: nginx-demo        # ✅ consistent label
+        app: my-app
+
     spec:
       containers:
-      - name: nginx-image
-        image: chandra219/welcome-login-app:66
-        ports:
-        - containerPort: 5000  # ✅ Flask runs on 5000
+        - name: my-app
+          image: nginx:1.27
+          imagePullPolicy: IfNotPresent
+
+          ports:
+            - containerPort: 80
+
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
+
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 15
+            periodSeconds: 20
