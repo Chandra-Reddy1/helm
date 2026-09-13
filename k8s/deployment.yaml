@@ -22,7 +22,7 @@ spec:                                # Desired state of Deployment
 
       containers:                    # Containers inside the Pod
         - name: my-app               # Container name
-          image: chandra219/welcome-app:latest         # Container image and version
+          image: chandra219/welcome-app:70         # Container image and version
 
           ports:                     # Ports used by the container
             - containerPort: 80      # Application port
