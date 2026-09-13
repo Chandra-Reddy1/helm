@@ -1,28 +1,39 @@
-apiVersion: apps/v1                 # API version for Deployment
+apiVersion: apps/v1
+kind: Deployment
 
-kind: Deployment                    # Create a Deployment
+metadata:
+  name: my-app
 
-metadata:                            # Information about the Deployment
-  name: my-app                       # Name of the Deployment
+spec:
+  replicas: 2
 
-spec:                                # Desired state of Deployment
-  replicas: 2                        # Number of Pods to run
+  selector:
+    matchLabels:
+      app: my-app
 
-  selector:                          # Selects the Pods managed by Deployment
-    matchLabels:                     # Match Pods using labels
-      app: my-app                    # Look for Pods with app=my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
 
-  template:                          # Blueprint for creating Pods
+    spec:
+      containers:
+        - name: my-app
+          image: chandra219/my-python:app
 
-    metadata:                        # Information about the Pod
-      labels:                        # Labels assigned to the Pod
-        app: my-app                  # Pod label
+          ports:
+            - containerPort: 5000
 
-    spec:                            # Specification of the Pod
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 5000
+            initialDelaySeconds: 15
+            periodSeconds: 20
 
-      containers:                    # Containers inside the Pod
-        - name: my-app               # Container name
-          image: chandra219/my-python:app        # Container image and version
-
-          ports:                     # Ports used by the container
-            - containerPort: 5000      # Application port
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 5000
+            initialDelaySeconds: 5
+            periodSeconds: 10
