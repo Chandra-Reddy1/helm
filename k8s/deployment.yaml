@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: my-app
-          image: chandra219/my-python:app1
+          image: chandra219/my-python:app
 
           ports:
             - containerPort: 5000
