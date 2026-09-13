@@ -1,0 +1,28 @@
+apiVersion: apps/v1                 # API version for Deployment
+
+kind: Deployment                    # Create a Deployment
+
+metadata:                            # Information about the Deployment
+  name: my-app                       # Name of the Deployment
+
+spec:                                # Desired state of Deployment
+  replicas: 2                        # Number of Pods to run
+
+  selector:                          # Selects the Pods managed by Deployment
+    matchLabels:                     # Match Pods using labels
+      app: my-app                    # Look for Pods with app=my-app
+
+  template:                          # Blueprint for creating Pods
+
+    metadata:                        # Information about the Pod
+      labels:                        # Labels assigned to the Pod
+        app: my-app                  # Pod label
+
+    spec:                            # Specification of the Pod
+
+      containers:                    # Containers inside the Pod
+        - name: my-app               # Container name
+          image: nginx:1.0.0         # Container image and version
+
+          ports:                     # Ports used by the container
+            - containerPort: 80      # Application port

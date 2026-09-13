@@ -1,19 +1,29 @@
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: my-app-ingress
+apiVersion: networking.k8s.io/v1     # API version for Ingress
 
-spec:
-  ingressClassName: nginx
+kind: Ingress                        # Create an Ingress
 
-  rules:
-    - host: myapp.example.com
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: my-app-service
-                port:
-                  number: 80
+metadata:                            # Information about the Ingress
+  name: my-app-ingress               # Ingress name
+
+spec:                                # Desired configuration of Ingress
+
+  ingressClassName: nginx            # Ingress Controller to use
+
+  rules:                             # Traffic routing rules
+
+    - host: myapp.example.com        # Domain name
+
+      http:                          # HTTP traffic
+
+        paths:                       # URL path rules
+
+          - path: /                  # URL path to match
+            pathType: Prefix          # Match / and paths below /
+
+            backend:                 # Where matching traffic goes
+
+              service:               # Backend is a Kubernetes Service
+                name: my-app-service # Service name
+
+                port:                # Service port
+                  number: 80         # Service port number

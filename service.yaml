@@ -1,0 +1,17 @@
+apiVersion: v1                       # API version for Service
+
+kind: Service                        # Create a Service
+
+metadata:                            # Information about the Service
+  name: my-app-service               # Service name
+
+spec:                                # Desired configuration of Service
+  type: ClusterIP                    # Service accessible inside the cluster
+
+  selector:                          # Selects Pods that receive traffic
+    app: my-app                      # Select Pods with app=my-app
+
+  ports:                             # Service port configuration
+    - protocol: TCP                  # Network protocol
+      port: 80                       # Service port
+      targetPort: 80                 # Pod/container port
