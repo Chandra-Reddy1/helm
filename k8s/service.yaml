@@ -13,5 +13,5 @@ spec:                                # Desired configuration of Service
 
   ports:                             # Service port configuration
     - protocol: TCP                  # Network protocol
-      port: 80                       # Service port
-      targetPort: 80                 # Pod/container port
+      port: 5000                 # Service port
+      targetPort: 5000                # Pod/container port
